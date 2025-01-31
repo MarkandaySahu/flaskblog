@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<br/>
+{% for message in get_flashed_messages() %}<!--(pg-11,MKGVI)-->
+    <!--we've used bootstrap alert component here-->
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        hey {{name}}- {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+<br/>
+{% if name %}
+    <h3>Hello {{name}}!!</h3>
+{% else %}
+    <h3>what is your name?</h3>
+    <br/>
+    <form  method="post">
+        {{form.hidden_tag()}}#<!--used to render all hidden fields in a form,
+        including the CSRF (Cross-Site Request Forgery) token.(pg-10,MKGVI)--> 
+        <!--the passed in parameters are taken from bootstrap forms attributes-->
+        {{form.name.label(class="form-label")}}
+        {{form.name(class="form-control")}}
+        <br/>
+        {{form.submit(class="btn btn-secondary")}}
+    </form>
+{% endif %}
+{% endblock %}
